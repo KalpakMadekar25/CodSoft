@@ -1,0 +1,70 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class task2 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int numberOfSubjects;
+        while (true) {
+            try {
+                System.out.print("Enter the number of subjects: ");
+                numberOfSubjects = scanner.nextInt();
+                if (numberOfSubjects <= 0) {
+                    System.out.println("Number of subjects must be a positive integer. Please try again.");
+                    continue;
+                }
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next(); // Clear the invalid input
+            }
+        }
+
+        int[] marks = new int[numberOfSubjects];
+        int totalMarks = 0;
+
+        // Take marks obtained in each subject
+        for (int i = 0; i < numberOfSubjects; i++) {
+            while (true) {
+                try {
+                    System.out.print("Enter marks for subject " + (i + 1) + ": ");
+                    int mark = scanner.nextInt();
+                    if (mark < 0 || mark > 100) {
+                        System.out.println("Marks must be between 0 and 100. Please try again.");
+                        continue;
+                    }
+                    marks[i] = mark;
+                    totalMarks += mark;
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    scanner.next(); // Clear the invalid input
+                }
+            }
+        }
+
+        // Calculate Average Percentage
+        double averagePercentage = (double) totalMarks / numberOfSubjects;
+
+        // Grade Calculation
+        String grade;
+        if (averagePercentage >= 90) {
+            grade = "A";
+        } else if (averagePercentage >= 80) {
+            grade = "B";
+        } else if (averagePercentage >= 70) {
+            grade = "C";
+        } else if (averagePercentage >= 60) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+
+        // Display Results
+        System.out.println("\nResults:");
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.println("Average Percentage: " + String.format("%.2f", averagePercentage) + "%");
+        System.out.println("Grade: " + grade);
+    }
+}
